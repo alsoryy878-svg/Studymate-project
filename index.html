@@ -2,6 +2,23 @@
 <html>
 <head>
 <title>StudyMate</title>
+
+<style>
+body {
+  font-family: Arial;
+  padding: 20px;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: gray;
+}
+
+button {
+  margin-left: 5px;
+}
+</style>
+
 </head>
 <body>
 
@@ -13,12 +30,42 @@
 <ul id="taskList"></ul>
 
 <script>
+
 function addTask() {
-  let task = document.getElementById("taskInput").value;
+  let taskInput = document.getElementById("taskInput");
+  let taskText = taskInput.value;
+
+  if (taskText === "") {
+    alert("Please enter a task");
+    return;
+  }
+
   let li = document.createElement("li");
-  li.textContent = task;
+
+  let span = document.createElement("span");
+  span.textContent = taskText;
+
+  let completeBtn = document.createElement("button");
+  completeBtn.textContent = "✔";
+  completeBtn.onclick = function () {
+    span.classList.toggle("completed");
+  };
+
+  let deleteBtn = document.createElement("button");
+  deleteBtn.textContent = "Delete";
+  deleteBtn.onclick = function () {
+    li.remove();
+  };
+
+  li.appendChild(span);
+  li.appendChild(completeBtn);
+  li.appendChild(deleteBtn);
+
   document.getElementById("taskList").appendChild(li);
+
+  taskInput.value = "";
 }
+
 </script>
 
 </body>
